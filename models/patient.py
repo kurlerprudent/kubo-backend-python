@@ -1,9 +1,16 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from database.database import Base
+from pydantic import BaseModel
+from typing import Optional
 
-class Patient(Base):
-    __tablename__ = "patients"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    age = Column(Integer)
-    user_id = Column(Integer, ForeignKey("users.id"))
+class PatientModel(BaseModel):
+    name: str
+    age: int
+    gender: str
+    condition: Optional[str] = ""
+    image_url: Optional[str] = ""
+
+class UpdatePatientModel(BaseModel):
+    name: Optional[str]
+    age: Optional[int]
+    gender: Optional[str]
+    condition: Optional[str]
+    image_url: Optional[str]

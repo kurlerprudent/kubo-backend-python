@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from models.patient import PatientModel, UpdatePatientModel
 from schemas.patient import patient_helper
-from database.database import db
+from database.mongodb import db
 from bson import ObjectId
 
 router = APIRouter()
@@ -9,9 +9,9 @@ collection = db["patients"]
 
 @router.post("/", response_description="Add new patient")
 async def add_patient(patient: PatientModel):
-    new_patient = await collection.insert_one(patient.dict())
-    created_patient = await collection.find_one({"_id": new_patient.inserted_id})
-    return patient_helper(created_patient)
+    #new_patient = await collection.insert_one(patient.dict())
+   # created_patient = await collection.find_one({"_id": new_patient.inserted_id})
+    return patient
 
 @router.get("/", response_description="List all patients")
 async def get_patients():
